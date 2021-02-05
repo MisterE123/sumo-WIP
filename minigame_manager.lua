@@ -183,6 +183,7 @@ arena_lib.on_time_tick('sumo', function(arena)
             end
             if arena.players[pl_name].invincible then
                 arena_lib.HUD_send_msg('broadcast', pl_name, "Invincible", 1,nil,c)
+            end
         end
 
     end
