@@ -240,8 +240,12 @@ minetest.register_on_player_hpchange(function(player, hp_change,reason)
 
             arena.players[pl_name].lives = arena.players[pl_name].lives - 1
             if arena.players[pl_name].lives == 0 then
-                arena_lib.remove_player_from_arena(pl_name, 1)
-                arena_lib.HUD_hide('hotbar', pl_name)
+                local player = minetest.get_player_by_name(pl_name)
+                if player then
+                    arena_lib.remove_player_from_arena(pl_name, 1)
+                
+                    arena_lib.HUD_hide('hotbar', pl_name)
+                end
             else
                 arena_lib.HUD_send_msg("title", pl_name,'You Died! Lives: '.. arena.players[pl_name].lives , 2,nil,0xFF1100)
                 
@@ -289,8 +293,13 @@ end)
 arena_lib.on_death('sumo', function(arena, p_name, reason)
     arena.players[p_name].lives = arena.players[p_name].lives - 1
     if arena.players[p_name].lives == 0 then
-        arena_lib.remove_player_from_arena(p_name, 1)
-        arena_lib.HUD_hide('hotbar', p_name)
+        
+        local player = minetest.get_player_by_name(p_name)
+        if player then
+            arena_lib.remove_player_from_arena(p_name, 1)
+        
+            arena_lib.HUD_hide('hotbar', p_name)
+        end
     else
         arena_lib.HUD_send_msg("title", p_name,'You Died! Lives: '.. arena.players[p_name].lives , 2,nil,0xFF1100)
         local sp_pos = arena_lib.get_random_spawner(arena)
@@ -313,7 +322,11 @@ arena_lib.on_celebration('sumo', function(arena, winner_name)
 end)
 
 arena_lib.on_quit('sumo', function(arena, pl_name, is_forced)
-    arena_lib.HUD_hide('hotbar', pl_name)
+    local player = minetest.get_player_by_name(pl_name)
+    if player then
+        arena_lib.HUD_hide('hotbar', pl_name)
+    end
+
 end)
 
 
