@@ -1,0 +1,1 @@
+A minigame for arena_lib where you punch the other players with your stick to knock them off the platform or island. Some advanced uses of the stick include vaulting yourself and throwing otehr players over your shoulder.
