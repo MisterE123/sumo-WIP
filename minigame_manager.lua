@@ -162,7 +162,7 @@ arena_lib.on_time_tick('sumo', function(arena)
 
         
         --handle messages
-        if arena.in_game and not arena.in_celebration and not arena.players[pl_name].invincible then
+        if arena.in_game and not arena.in_celebration and not sumo.invincible[pl_name] then
             local c = 0x00FF00
             if arena.current_time < 60 then
                 c = 0xFFFF00
@@ -178,7 +178,7 @@ arena_lib.on_time_tick('sumo', function(arena)
                 message = 'Running... '..message
             end
             message = message.." Lives:"..arena.players[pl_name].lives
-            if arena.players[pl_name].invincible then
+            if sumo.invincible[pl_name] == true then
                 message = "Invincible"
             end
             if arena.current_time < arena.initial_time - 1 then
