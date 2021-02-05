@@ -181,6 +181,8 @@ arena_lib.on_time_tick('sumo', function(arena)
             if arena.current_time < arena.initial_time - 1 then
                 arena_lib.HUD_send_msg('hotbar', pl_name, message, 1,nil,c)
             end
+            if arena.players[pl_name].invincible then
+                arena_lib.HUD_send_msg('broadcast', pl_name, "Invincible", 1,nil,c)
         end
 
     end
@@ -239,7 +241,7 @@ minetest.register_on_player_hpchange(function(player, hp_change,reason)
                 arena_lib.HUD_hide('hotbar', pl_name)
             else
                 arena_lib.HUD_send_msg("title", pl_name,'You Died! Lives: '.. arena.players[pl_name].lives , 2,nil,0xFF1100)
-                arena_lib.HUD_send_msg("hotbar", pl_name,'Invincible', 2,nil,0xFF1100)
+                
                 
                 
                 minetest.sound_play('sumo_elim', {
