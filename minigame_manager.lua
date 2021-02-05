@@ -217,7 +217,7 @@ minetest.register_on_player_hpchange(function(player, hp_change,reason)
             local taken = inv:remove_item("main", ItemStack("sumo:pushstick"))
 
             minetest.after(2,function(pl_name)
-                sumo.invincible[pl_name] = false
+                --sumo.invincible[pl_name] = false
                 if arena_lib.is_player_in_arena(pl_name, 'sumo') then
                     local arena = arena_lib.get_arena_by_player(pl_name)
                     if arena.in_game == true then
@@ -228,7 +228,7 @@ minetest.register_on_player_hpchange(function(player, hp_change,reason)
                         if player then
                             player:move_to(sp_pos, false)
                             player:get_inventory():set_stack("main", 1, ItemStack("sumo:pushstick"))
-                            minetest.after(2,function(pl_name)
+                            minetest.after(3,function(pl_name)
                                 sumo.invincible[pl_name] = false
 
                             end,pl_name)
