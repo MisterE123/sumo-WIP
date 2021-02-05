@@ -178,12 +178,13 @@ arena_lib.on_time_tick('sumo', function(arena)
                 message = 'Running... '..message
             end
             message = message.." Lives:"..arena.players[pl_name].lives
+            if arena.players[pl_name].invincible then
+                message = "Invincible"
+            end
             if arena.current_time < arena.initial_time - 1 then
                 arena_lib.HUD_send_msg('hotbar', pl_name, message, 1,nil,c)
             end
-            if arena.players[pl_name].invincible then
-                arena_lib.HUD_send_msg('broadcast', pl_name, "Invincible", 1,nil,c)
-            end
+            
         end
 
     end
