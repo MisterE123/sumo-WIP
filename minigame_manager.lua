@@ -78,7 +78,7 @@ arena_lib.on_load("sumo", function(arena)
             if player and arena_lib.is_player_in_arena(pl_name, 'sumo') then
                 player:move_to(pos)
             end
-        end,player,pos)
+        end,pl_name,pos)
             
     end
 
