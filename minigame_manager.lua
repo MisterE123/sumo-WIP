@@ -162,7 +162,7 @@ arena_lib.on_time_tick('sumo', function(arena)
 
         
         --handle messages
-        if arena.in_game and not arena.in_celebration and not sumo.invincible[pl_name] then
+        if arena.in_game and not arena.in_celebration then
             local c = 0x00FF00
             if arena.current_time < 60 then
                 c = 0xFFFF00
@@ -180,6 +180,7 @@ arena_lib.on_time_tick('sumo', function(arena)
             message = message.." Lives:"..arena.players[pl_name].lives
             if sumo.invincible[pl_name] == true then
                 message = "Invincible"
+                c = 0xFF0000
             end
             if arena.current_time < arena.initial_time - 1 then
                 arena_lib.HUD_send_msg('hotbar', pl_name, message, 1,nil,c)
