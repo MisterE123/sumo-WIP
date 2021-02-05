@@ -54,7 +54,7 @@ arena_lib.on_load("sumo", function(arena)
 
     --send controls statement
     for pl_name, stats in pairs(arena.players) do
-        minetest.log('First: '..dump(pl_name).. " is "..type(pl_name))
+        ---minetest.log('First: '..dump(pl_name).. " is "..type(pl_name))
         sumo.invincible[pl_name] = true
 
         local message = 'Controls: '
@@ -70,10 +70,10 @@ arena_lib.on_load("sumo", function(arena)
         arena.players[pl_name].lives = arena.lives
         local player = minetest.get_player_by_name(pl_name)
         local pos = player:get_pos()
-        spawn_cage(pos)
-        minetest.log('Second: '..dump(pl_name).. " is "..type(pl_name))
+        
+        --minetest.log('Second: '..dump(pl_name).. " is "..type(pl_name))
         minetest.after(.2,function(pl_name,pos)
-            minetest.log('Third: '..dump(pl_name).. " is "..type(pl_name))
+            --minetest.log('Third: '..dump(pl_name).. " is "..type(pl_name))
             local player = minetest.get_player_by_name(pl_name)
             if player and arena_lib.is_player_in_arena(pl_name, 'sumo') then
                 player:move_to(pos)
@@ -99,8 +99,7 @@ arena_lib.on_load("sumo", function(arena)
                     sumo.invincible[pl_name] = false
                     local player = minetest.get_player_by_name(pl_name)
                     player:get_inventory():set_stack("main", 1, item)
-                    local pos = player:get_pos()
-                    rem_cage(pos)
+                    
                     
                 end
                 
@@ -220,8 +219,15 @@ minetest.register_on_player_hpchange(function(player, hp_change,reason)
                     if arena.in_game == true then
                         arena_lib.HUD_send_msg("title", pl_name,'Fight!', 2,nil,0x00FF00)
                         local player = minetest.get_player_by_name(pl_name)
+                        local sp_pos = arena_lib.get_random_spawner(arena)
+                        
                         if player then
+                            player:move_to(arena.jail_pos, false)
                             player:get_inventory():set_stack("main", 1, ItemStack("sumo:pushstick"))
+                            minetest.after(2,function(pl_name)
+                                sumo.invincible[pl_name] = false
+
+                            end,pl_name)
                         end
                     end
                 end
@@ -234,15 +240,15 @@ minetest.register_on_player_hpchange(function(player, hp_change,reason)
             else
                 arena_lib.HUD_send_msg("title", pl_name,'You Died! Lives: '.. arena.players[pl_name].lives , 2,nil,0xFF1100)
                 arena_lib.HUD_send_msg("hotbar", pl_name,'Invincible', 2,nil,0xFF1100)
-                local sp_pos = arena_lib.get_random_spawner(arena)
+                
                 
                 minetest.sound_play('sumo_elim', {
                     to_player = pl_name,
                     gain = 2.0,
                 })
-                spawn_cage(sp_pos)
-                player:move_to(sp_pos, false)
-                minetest.after(2,function(sp_pos) rem_cage(sp_pos) end,sp_pos)
+                
+                player:move_to(arena.jail_pos, false)
+                
                 
                 
 

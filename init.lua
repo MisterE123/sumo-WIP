@@ -29,6 +29,7 @@ local player_jump = sumo.player_jump -- when in the minigame, though players can
 
       disabled_damage_types = {"punch","fall","set_hp"},
       properties = {
+        jail_spawn = {x = 0, y = 0, z = 0}
         lives = 3,
     
       
