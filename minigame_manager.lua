@@ -71,7 +71,13 @@ arena_lib.on_load("sumo", function(arena)
         local player = minetest.get_player_by_name(pl_name)
         local pos = player:get_pos()
         spawn_cage(pos)
-        
+        minetest.after(.2,function(pl_name,pos)
+            local player = minetest.get_player_by_name(pl_name)
+            if player and arena_lib.is_player_in_arena(pl_name, 'sumo') then
+                player:move_to(pos)
+            end
+        end,player,pos)
+            
     end
 
     --countdown timer, give item at appropriate time
