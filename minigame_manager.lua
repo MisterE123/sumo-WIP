@@ -54,7 +54,7 @@ arena_lib.on_load("sumo", function(arena)
 
     --send controls statement
     for pl_name, stats in pairs(arena.players) do
-
+        minetest.log('First: '..dump(pl_name).. " is "..type(pl_name))
         sumo.invincible[pl_name] = true
 
         local message = 'Controls: '
@@ -71,7 +71,9 @@ arena_lib.on_load("sumo", function(arena)
         local player = minetest.get_player_by_name(pl_name)
         local pos = player:get_pos()
         spawn_cage(pos)
+        minetest.log('Second: '..dump(pl_name).. " is "..type(pl_name))
         minetest.after(.2,function(pl_name,pos)
+            minetest.log('Third: '..dump(pl_name).. " is "..type(pl_name))
             local player = minetest.get_player_by_name(pl_name)
             if player and arena_lib.is_player_in_arena(pl_name, 'sumo') then
                 player:move_to(pos)
