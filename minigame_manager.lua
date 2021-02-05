@@ -222,7 +222,7 @@ minetest.register_on_player_hpchange(function(player, hp_change,reason)
                         local sp_pos = arena_lib.get_random_spawner(arena)
                         
                         if player then
-                            player:move_to(arena.jail_pos, false)
+                            player:move_to(sp_pos, false)
                             player:get_inventory():set_stack("main", 1, ItemStack("sumo:pushstick"))
                             minetest.after(2,function(pl_name)
                                 sumo.invincible[pl_name] = false
